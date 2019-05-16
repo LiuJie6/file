@@ -1,0 +1,70 @@
+1.找文件
+find / -name *tomcat*
+
+..表示上级目录 .表示当前目录
+cd ..切换到上级目录
+pwd 查看当前路径
+
+2.查看文件
+cat /home/zj/apache/tomcat/tomcat9/logs/catalina.2018-12-26.log
+head -n 10 /home/zj/apache/tomcat/tomcat9/logs/catalina.2018-12-26.log
+tail -f /home/zj/apache/tomcat/tomcat9/logs/catalina.out
+
+3.文件权限
+chown -R zj /home/zj/apache/tomcat/tomcat9
+chmod 775 -R /home/zj/apache/tomcat/tomcat9/logs/framework
+
+4.文件操作
+cp -r ../logs/catalina.2018-12-26.log ../logs2/catalina.2018-12-26.log
+mv ../logs/catalina.2018-12-26.log ../logs2/catalina.2018-12-26.log
+unzip ../logs/catalina.2018-12-26.zip
+rm -rf /home/zj/apache/tomcat/tomcat9/logs
+touch /home/zj/apache/tomcat/tomcat9/logs/catalina.2018-12-26.log
+mkdir -m 775 -p /home/zj/apache/tomcat/tomcat9/logs/catalina.2018-12-26.log
+
+5.进程操作
+ps -aux | grep tomcat
+kill -9 12345
+
+6.切换用户
+su
+su zj
+
+7.端口占用
+netstat -tunlp | grep 8080
+
+8.系统信息
+top
+cat /proc/cpuinfo
+cat /proc/meminfo
+free -h
+fdisk -l
+iostat -x 10
+du -sh /*
+df -h
+uname -a # 查看内核/操作系统/CPU信息
+
+9.清理boot分区
+dpkg --get-selections |grep linux-headers
+sudo dpkg -P linux-headers-4.8.0-56 linux-headers-4.8.0-56-generic
+
+dpkg --get-selections |grep linux-image
+sudo apt-get remove linux-image-4.8.0-56-generic linux-image-extra-4.8.0-56-generic
+sudo dpkg -P linux-image-4.4.0-71-generic linux-image-extra-4.4.0-71-generic
+
+10.ssh root登录
+PermitRootLogin prohibit-password
+vi /etc/ssh/sshd_config
+service ssh restart
+
+netstat -na|grep ESTABLISHED|grep 80|wc -l
+vmstat
+
+
+
+11 ssl   curl
+curl http://
+
+
+
+

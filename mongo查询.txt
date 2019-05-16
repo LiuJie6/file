@@ -1,0 +1,38 @@
+mongo查询
+db.getCollection('parking').find({"RobotId" : "245c72c3-39ec-4f92-801f-7314077eddf0"},{"Time":1,"Message":1}).sort({"Time":1})
+
+db.getCollection('parking').find({"RobotId" : "bdaeece5-cb66-4774-9cbf-78518b3af9bd","Time":{"$gte":ISODate("2018-10-14T00:00:00Z"),"$lt":ISODate("2018-10-15T00:00:00Z")}},{"Time":1,"Message":1}).sort({"Time":1})
+
+db.getCollection('robot').distinct("Version",{"Time":{"$gte":ISODate("2018-11-22T00:00:00Z")}})
+
+db.getCollection('robot').distinct("RobotId",{"Version" : "V1.3.4.20180912","Time":{"$gt":ISODate("2018-11-22T00:00:00Z")}})
+
+本地mongodb服务器导入robot数据,parking数据
+mongoimport --host localhost --port 27017 -d parking -c robot --type json --file robot.json
+
+mongoimport --host localhost --port 27017 -d parking -c parking --type json --file parking.json
+
+公用mongodb服务器导入robot数据,parking数据
+mongoimport --host 10.0.104.50 --port 27017 -d parking -c robot --type json --file robot.json
+
+mongoimport --host 10.0.104.50 --port 27017 -d parking -c parking --type json --file parking.json
+
+公用mongodb服务器导出robot数据,parking数据
+mongoexport --host 10.0.104.50 --port 27017 -d parking -c robot -q "{'Time':{'$gte':ISODate('2018-11-23T00:00:00Z'),'$lt':ISODate('2018-11-24T00:00:00Z')}}" -o robot.json --type=json
+
+mongoexport --host 10.0.104.50 --port 27017 -d parking -c parking -q "{'Time':{'$gte':ISODate('2018-11-23T00:00:00Z'),'$lt':ISODate('2018-11-24T00:00:00Z')}}" -o parking.json --type=json
+
+远程plap服务器导出robot数据,parking数据
+mongoexport --host primarynode.mongodb.rds.aliyuncs.com --port 3717 -u parking -p yk123456 -d parking -c robot -q "{'Time':{'$gte':ISODate('2018-11-23T00:00:00Z'),'$lt':ISODate('2018-11-24T00:00:00Z')}}" -o robot.json --type=json
+
+mongoexport --host primarynode.mongodb.rds.aliyuncs.com --port 3717 -u parking -p yk123456 -d parking -c parking -q "{'Time':{'$gte':ISODate('2018-11-23T00:00:00Z'),'$lt':ISODate('2018-11-24T00:00:00Z')}}" -o parking.json --type=json
+
+
+命令行粘贴方法
+复制文本-》alt+空格-》e->p
+
+https://github.com/cquzxs
+
+https://blog.csdn.net/csdn_zxs
+
+
